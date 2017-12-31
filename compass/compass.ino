@@ -39,7 +39,6 @@ void loop()
   float rad = atan2(y,x); 
   
   // XYZの3軸のうち、X軸方向の角度
-  // ※X軸方向の詳細は記事を参照ください。
   float degree = rad * 180 / M_PI;  
   if(degree <0){
     degree = 360 + degree;

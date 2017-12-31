@@ -18,6 +18,9 @@ double X_degree = 0;
 double Y_degree = 0; 
 double Z_degree = 0; 
 
+double roll = 0; 
+double pitch = 0; 
+
 void setup()
 {
   Serial.begin(9600);  // start serial for output
@@ -39,25 +42,16 @@ void loop()
   Y_Value = (double)analogRead(Y_Axis) - 512;    
   Z_Value = (double)analogRead(Z_Axis) - 512;   
  
-  R_Value = sqrt(X_Value*X_Value + Y_Value*Y_Value + Z_Value*Z_Value); 
-  //R_Value = 204; 
-  X_degree = atan(X_Value / sqrt(Y_Value*Y_Value+Z_Value*Z_Value)) * 180 / PI;
-  Y_degree = atan(Y_Value / sqrt(X_Value*X_Value+Z_Value*Z_Value)) * 180 / PI;
-  Z_degree = atan(Z_Value / sqrt(X_Value*X_Value+Y_Value*Y_Value)) * 180 / PI;
-  
+  X_Value = -X_Value;
+  roll = atan2(Y_Value, Z_Value);
+  pitch = atan2(-X_Value, (Y_Value * sin(roll) + Z_Value * cos(roll)));
+    
   // send sensor values:
-  Serial.print("(x,y,z)=(");
-  Serial.print(X_Value);
+  Serial.print("(rokll,pitch)=(");
+  Serial.print(roll * 180 / PI);
   Serial.print(", ");
-  Serial.print(Y_Value);
-  Serial.print(", ");
-  Serial.print(Z_Value);
-  Serial.print("), Tx=");
-  Serial.print(X_degree);
-  Serial.print(", Ty=");
-  Serial.print(Y_degree);
-  Serial.print(", Tz=");
-  Serial.print(Z_degree);
+  Serial.print(pitch * 180 / PI);
+  Serial.print(")");
   Serial.println();
 
   //Tell the HMC5883 where to begin reading data
@@ -79,23 +73,29 @@ void loop()
   
   // X,Y軸の位置からラジアンを算出する
   float rad = atan2(y,x); 
-  
+  float rad2 = atan2(z*sin(roll)-y*cos(roll), z*cos(pitch)+y*sin(pitch)*sin(roll)+z*sin(pitch)*cos(roll)); 
+ 
   // XYZの3軸のうち、X軸方向の角度
-  // ※X軸方向の詳細は記事を参照ください。
   float degree = rad * 180 / M_PI;  
   if(degree <0){
     degree = 360 + degree;
   }
-  
+  float degree2 = rad2 * 180 / M_PI + 180;  
+  if(degree2 <0){
+    degree2 = 360 + degree2;
+  }
+  else if(degree2 > 360)
+  {
+    degree2 = degree2 - 360;
+  }
+ 
   //Print out values of each axis
-  Serial.print("x: ");
-  Serial.print(x);
-  Serial.print("  y: ");
-  Serial.print(y);
-  Serial.print("  z: ");
-  Serial.print(z);
-  Serial.print(" degree: ");
-  Serial.println(degree);  
+  Serial.print("(degree, degree2)=(");
+  Serial.print(degree);  
+  Serial.print(", ");
+  Serial.print(degree2);  
+  Serial.print(")");
+  Serial.println();
   
   delay(500);  
 }

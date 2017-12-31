@@ -18,20 +18,16 @@ void setup()
 
 void loop()
 {
-  // if we get a valid byte, read analog ins:
-  if (Serial.available() > 0) {
-    // read first analog input:
-    lightSensor = analogRead(sensorPin);
-    // send sensor values:
-    Serial.println(lightSensor);    
-  }
-  delay(300);
+  // read first analog input:
+  lightSensor = analogRead(sensorPin);
+  // send sensor values:
+  Serial.println(lightSensor);    
+  delay(500);
 }
 
 void establishContact() {
   while (Serial.available() <= 0) {
     Serial.println("Initializing");   // send an initial string
-    delay(300);
+    delay(500);
   }
 }
-

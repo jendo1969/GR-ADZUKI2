@@ -10,7 +10,6 @@ double X_Value = 0;
 double Y_Value = 0; 
 double Z_Value = 0; 
 
-double R_Value = 0; 
 double X_degree = 0; 
 double Y_degree = 0; 
 double Z_degree = 0; 
@@ -28,8 +27,6 @@ void loop() {
   Y_Value = (double)analogRead(Y_Axis) - 512;    
   Z_Value = (double)analogRead(Z_Axis) - 512;   
  
-  R_Value = sqrt(X_Value*X_Value + Y_Value*Y_Value + Z_Value*Z_Value); 
-  //R_Value = 204; 
   X_degree = atan(X_Value / sqrt(Y_Value*Y_Value+Z_Value*Z_Value)) * 180 / PI;
   Y_degree = atan(Y_Value / sqrt(X_Value*X_Value+Z_Value*Z_Value)) * 180 / PI;
   Z_degree = atan(Z_Value / sqrt(X_Value*X_Value+Y_Value*Y_Value)) * 180 / PI;

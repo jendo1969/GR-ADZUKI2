@@ -34,6 +34,6 @@ void loop()  {
     SpeedAmount = -SpeedAmount ; 
   }     
   // wait 
-  delay(50);                            
+  delay(100);                            
 }
 

@@ -31,8 +31,8 @@ void setup() {
   digitalWrite(led_B, LOW);  // RED LED COMMON
 
   // initialize the pushbutton pin as an input:
-  pinMode(L_buttonState, INPUT_PULLUP);     
-  pinMode(R_buttonState, INPUT_PULLUP);     
+  pinMode(R_button, INPUT_PULLUP);     
+  pinMode(L_button, INPUT_PULLUP);     
 }
 
 void loop(){

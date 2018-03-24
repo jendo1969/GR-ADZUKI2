@@ -1,5 +1,5 @@
 /*
-bend sensor
+sensor
 */
 
 const int R_Bend = A0;

@@ -50,6 +50,13 @@ static const unsigned char PROGMEM logo16_glcd_bmp[] =
   B01110000, B01110000,
   B00000000, B00110000 };
 
+static const unsigned char PROGMEM logo16_glcd_bmp[] =
+{
+  0x06, 0x02, 0x02, 0x02, 0x06, 
+  0x06, 0x02, 0x02, 0x02, 0x06, 
+};
+
+
 #if (SSD1306_LCDHEIGHT != 64)
 #error("Height incorrect, please fix Adafruit_SSD1306.h!");
 #endif
@@ -163,7 +170,7 @@ void setup()   {
   display.clearDisplay();
 
   // draw a bitmap icon and 'animate' movement
-  testdrawbitmap(logo16_glcd_bmp, LOGO16_GLCD_HEIGHT, LOGO16_GLCD_WIDTH);
+  //testdrawbitmap(logo16_glcd_bmp, LOGO16_GLCD_HEIGHT, LOGO16_GLCD_WIDTH);
 }
 
 

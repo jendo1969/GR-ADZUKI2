@@ -35,7 +35,7 @@ void setup()
   Serial.print("Initializing SD2 card...");
   // make sure that the default chip select pin is set to
   // output, even if you don't use it:
-  pinMode(10, OUTPUT);
+  pinMode(chipSelect, OUTPUT);
   
   // see if the card is present and can be initialized:
   if (!SD2.begin(chipSelect)) {
@@ -47,6 +47,23 @@ void setup()
   
   // Call rht.begin() to initialize the sensor and our data pin
   rht.begin(RHT03_DATA_PIN);
+
+  while(1)
+  {  
+    int updateRet = rht.update();
+     // If successful, the update() function will return 1.
+     // If update fails, it will return a value <0
+     if (updateRet != 1)
+     {
+       Serial.println("RHT03 not initialized.");
+       delay(RHT_READ_INTERVAL_MS);
+     }
+     else
+     {
+       Serial.println("RHT03 initialized.");
+       break;
+     }
+  }
 }
 
 void loop()

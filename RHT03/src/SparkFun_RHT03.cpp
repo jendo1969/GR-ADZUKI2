@@ -130,7 +130,9 @@ bool RHT03::waitForRHT(int pinState, unsigned int timeout)
 {
     unsigned int counter = 0;
     while ((digitalRead(_dataPin) != pinState) && (counter++ < timeout))
+    {
         delayMicroseconds(1);
+    }
     
     if (counter >= timeout)
         return false;
